@@ -20,8 +20,10 @@ provider:
   # from ~/.aws/credentials, you can do so here
   profile: default
   # you can overwrite defaults here
-  #  stage: dev
-  #  region: us-east-1
+  stage: prod
+  region: ap-southeast-1
+  apiKeys: # List of API keys to be used by your service API Gateway REST API
+    - default-api-key
 
 custom:
   webpack:
@@ -39,6 +41,7 @@ functions:
           method: get
           path: parser
           cors: true
+          private: true
       # Ping every 5 minutes to avoid cold starts
       - schedule:
           rate: rate(5 minutes)
@@ -53,6 +56,7 @@ functions:
           method: post
           path: parse-html
           cors: true
+          private: true
       # Ping every 5 minutes to avoid cold starts
       - schedule:
           rate: rate(5 minutes)
